@@ -1,0 +1,43 @@
+{
+	"reload": 1,
+	"maxCounter": 5,
+	"getNextStep": "personalInfo",
+	"name": "login",
+	"steps": [
+		{
+			"instruction":"document.querySelector('.ui-selectonemenu ui-widget ui-state-default ui-corner-all select-trigger > label').click()",
+			"getNextInstruction":"0",
+			"pageLoading":"1",
+			"callNext":"0",
+			"send": "0"
+		},
+		{
+			"instruction":"document.querySelector('#DUMMY1').click()",
+			"getNextInstruction":"1",
+			"pageLoading":"0",
+			"callNext":"0",
+			"send": "0"
+		},
+		{
+			"instruction":"document.getElementById('AuthenticationFG.USER_PRINCIPAL').value = '<username>'",
+			"getNextInstruction":"1",
+			"pageLoading":"0",
+			"callNext":"0",
+			"send": "0"
+		},
+		{
+			"instruction":"document.getElementById('AuthenticationFG.ACCESS_CODE').value = '<password>'",
+			"getNextInstruction":"1",
+			"pageLoading":"0",
+			"callNext":"0",
+			"send": "0"
+		},
+		{
+			"instruction":"document.querySelector('#VALIDATE_CREDENTIALS1').click()",
+			"getNextInstruction":"0",
+			"pageLoading":"1",
+			"callNext":"1",
+			"send": "0"
+		}
+	]
+}
