@@ -26,15 +26,26 @@ const server = http.createServer((req, res) => {
         }
     }
 
-    console.log("Hitting for service - " + service)
+    console.log("Hitting for service - " + service);
 
     if (service == 'Vaahan') {
-        var tmpFileName = 'lib/' + service.toLowerCase() + '/' + step;
-        console.log("sending " + tmpFileName);
-        fs.readFile(tmpFileName, 'utf8', function(err, data) {
-            res.end(data);
-            console.log('Shown 200 page');
-        });
+        try {
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            // var tmpFileName = './lib/' + service.toLowerCase() + '/' + step;
+            var tmpFileName = '/home/dhinesh/node_ws/adapter-plugin/nbf_server/server/lib/vaahan/login';
+            console.log("sending " + tmpFileName);
+            fs.readFile(tmpFileName, 'utf8', function(err, data1) {
+                res.end(data1);
+                console.log('Shown 200 page');
+            });
+        } catch (err) {
+            logger(err);
+            _res.writeHead(404, {'Content-Type': 'text/html'});
+            fs.readFile('./404.html', 'utf8', function(err, data1) {
+                _res.end(data1);
+                console.log('Shown 404 page not found')
+            });
+        }
         // res.write('<html>');
         // res.write('<head><title>Demo Page</title></head>');
         // res.write('<body><h1>Demo Page</h1></body>');
