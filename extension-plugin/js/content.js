@@ -2,7 +2,7 @@
 
 // change tab heading
 var maxSteps = 100;
-var bankDomain = "";
+var bankDomain = "https://vahan.parivahan.gov.in/vahanservice/vahan/ui/statevalidation/homepage.xhtml";
 
 $(document).ready(function() {
     document.title = "NBF Fetch";
@@ -13,13 +13,19 @@ $(document).ready(function() {
     }
     chrome.runtime.sendMessage({"message": "getInstructionSet"});
 });
-
+debugger;
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
+    alert(request.message);
+    console.log(request);
     if( request.message === "clicked_browser_action" ) {
     	console.log("step counter: " + request.step);
         console.log("instruction set: " + request.instructionSet.instruction);
         console.log("instruction set: " + request.instructionSet.getNextInstruction);
+
+        alert(request.instructionSet.instruction);
+
+        var data = eval(request.instructionSet.instruction);
 
     	// increasing counter
     	chrome.runtime.sendMessage({"message": "nextStep"});
@@ -33,6 +39,7 @@ chrome.runtime.onMessage.addListener(
         } else if ( request.instructionSet.getNextInstruction == "0" && request.instructionSet.pageLoading == "0" ) {
             chrome.runtime.sendMessage({"message": "setProcessingFlag", "processingFlag": "0", "bankDomain": currentURL});
         }
+        return true;
     }
   }
 );

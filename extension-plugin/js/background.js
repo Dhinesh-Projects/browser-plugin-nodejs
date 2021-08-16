@@ -18,7 +18,7 @@ function init (_data) {
   nextInstructioinSet = _data.getNextStep;
   maxSteps = _data.maxCounter;
 
-  console.log();
+  console.log(_data);
 
   chrome.tabs.sendMessage(tabId, {"message": "clicked_browser_action", "step": stepsCounter, "instructionSet" : hash[stepsCounter], "nextFlag": "0"});
 };
@@ -33,7 +33,7 @@ chrome.runtime.onMessage.addListener(
       if (request.message == 'startProcess') {
         service = request.service;
         console.log("Service opted is - "+request.service);
-        console.log("Opening url for service - "+request.url);
+        console.log("Opening url for service - "+request.openURL);
         if (service == 'Vaahan') {
           chrome.tabs.create({ "url": 'vaahan_home.html'});
         }
@@ -53,14 +53,21 @@ chrome.runtime.onMessage.addListener(
             console.log("Response status recieved - "+status);
             console.log("Step name - "+data.name);
             // chrome.tabs.sendMessage(tabId);
+            chrome.tabs.create({"url": request.openURL});
+              chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+              activeTab = tabs[0];
+              tabId = activeTab.id;
+             console.log("tab id: " + tabId);
+            });
+            init(data);
           });
-          chrome.tabs.create({"url": request.openURL});
+          /* chrome.tabs.create({"url": request.openURL});
           chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
             activeTab = tabs[0];
             tabId = activeTab.id;
             console.log("tab id: " + tabId);
           });
-          init(data);
+          init(data); */
       }
       
   });
