@@ -5,7 +5,7 @@
 	"name": "login",
 	"steps": [
 		{
-			"instruction":"document.querySelector('.ui-selectonemenu ui-widget ui-state-default ui-corner-all select-trigger > label').click()",
+			"instruction":"document.querySelector('#j_idt171').click()",
 			"getNextInstruction":"0",
 			"pageLoading":"1",
 			"callNext":"0",
